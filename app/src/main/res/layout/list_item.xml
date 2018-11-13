@@ -7,7 +7,8 @@
     android:layout_marginTop="16dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/border_ui">
 
     <ImageView
         android:layout_width="match_parent"

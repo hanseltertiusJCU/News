@@ -14,7 +14,7 @@ public class Article {
     private static final String NO_TEXT_FOUND = null;
     private static final int NO_IMAGE_FOUND = -1;
 
-    private Article(String author, String topic, String date, String time, String articleTitle){
+    public Article(String author, String topic, String date, String time, String articleTitle){
         mAuthor = author;
         mTopic = topic;
         mDate = date;
@@ -23,7 +23,7 @@ public class Article {
     }
 
 
-    private Article(int articleImage, String author, String topic, String date, String time, String articleTitle){
+    public Article(int articleImage, String author, String topic, String date, String time, String articleTitle){
         mArticleImage = articleImage;
         mAuthor = author;
         mTopic = topic;

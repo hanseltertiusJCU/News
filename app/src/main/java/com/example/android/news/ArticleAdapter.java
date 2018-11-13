@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
 
-    private ArticleAdapter (Activity context, ArrayList<Article> articles) {
+    // Create a constructor for giving access to create an object
+    public ArticleAdapter (Activity context, ArrayList<Article> articles) {
         super(context, 0, articles);
     }
 
