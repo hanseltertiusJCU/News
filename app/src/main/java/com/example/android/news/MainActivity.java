@@ -14,10 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Create a new ArrayList object
-        ArrayList<Article> articles = new ArrayList<Article>();
-
-        articles.add(new Article(null, "Education", "2018-11-05", "18:20:40", "Let’s have perspective in tuition fees debate | Letters"));
-        articles.add(new Article(null, "Politics", "2018-10-31", "06:00:12", "Debate on final Brexit deal could use rare Commons procedure"));
+        ArrayList<Article> articles = QueryUtils.extractFeatureFromJson();
 
         // Create a new ArticleAdapter object
         ArticleAdapter articleAdapter = new ArticleAdapter(this, articles);
