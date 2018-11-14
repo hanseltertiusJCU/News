@@ -9,27 +9,30 @@ public class Article {
     private String mDate;
     private String mTime;
     private String mArticleTitle;
+    private String mArticleURL;
 
     // Set the constants for no image and no text found
     private static final String NO_TEXT_FOUND = null;
     private static final int NO_IMAGE_FOUND = -1;
 
-    public Article(String author, String topic, String date, String time, String articleTitle){
+    public Article(String author, String topic, String date, String time, String articleTitle, String articleURL){
         mAuthor = author;
         mTopic = topic;
         mDate = date;
         mTime = time;
         mArticleTitle = articleTitle;
+        mArticleURL = articleURL;
     }
 
 
-    public Article(int articleImage, String author, String topic, String date, String time, String articleTitle){
+    public Article(int articleImage, String author, String topic, String date, String time, String articleTitle, String articleURL){
         mArticleImage = articleImage;
         mAuthor = author;
         mTopic = topic;
         mDate = date;
         mTime = time;
         mArticleTitle = articleTitle;
+        mArticleURL = articleURL;
     }
 
     public int getmArticleImage() {
@@ -56,19 +59,8 @@ public class Article {
         return mArticleTitle;
     }
 
-    public boolean hasArticleAuthor() {
-        return mAuthor != NO_TEXT_FOUND;
+    public String getArticleURL() {
+        return mArticleURL;
     }
 
-    public boolean hasArticleDate() {
-        return mDate != NO_TEXT_FOUND;
-    }
-
-    public boolean hasArticleTime() {
-        return mTime != NO_TEXT_FOUND;
-    }
-
-    public boolean hasArticleImage() {
-        return mArticleImage != NO_IMAGE_FOUND;
-    }
 }

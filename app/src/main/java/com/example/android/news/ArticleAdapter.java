@@ -34,7 +34,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         ImageView articleImageView = (ImageView) listItemView.findViewById(R.id.article_image);
 
         // Check if the article object has valid image
-        if(currentArticle.hasArticleImage()){
+        if(currentArticle.getmArticleImage() != 0){
             // Get image resource ID of the article and set the image resource into ImageView
             articleImageView.setImageResource(currentArticle.getmArticleImage());
             articleImageView.setVisibility(View.VISIBLE);
@@ -47,7 +47,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView authorTextView = (TextView) listItemView.findViewById(R.id.author_text);
 
         // Check if the article object has author
-        if(currentArticle.hasArticleAuthor()){
+        if(currentArticle.getArticleAuthor() != null){
             // Get article author and set it into TextView
             authorTextView.setText(currentArticle.getArticleAuthor());
             authorTextView.setVisibility(View.VISIBLE);
@@ -65,7 +65,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.date_text);
 
         // Check if the article object has date
-        if(currentArticle.hasArticleDate()){
+        if(currentArticle.getArticleDate() != null){
             // Get article date and set it into TextView
             dateTextView.setText(currentArticle.getArticleDate());
             dateTextView.setVisibility(View.VISIBLE);
@@ -78,7 +78,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         TextView timeTextView = (TextView) listItemView.findViewById(R.id.time_text);
 
         // Check if the article object has time
-        if(currentArticle.hasArticleTime()){
+        if(currentArticle.getArticleTime() != null){
             // Get article time and set it into TextView
             timeTextView.setText(currentArticle.getArticleTime());
             timeTextView.setVisibility(View.VISIBLE);

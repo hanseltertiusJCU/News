@@ -89,11 +89,12 @@ public final class QueryUtils {
                 // Extract the value for the key called "webTitle"
                 String title = currentArticle.getString("webTitle");
 
-                //todo: put the url for intent
+                // Extract the value for the key called "webUrl"
+                String url = currentArticle.getString("webUrl");
 
                 // Create a new {@link Article} object with the magnitude, location, time,
-                // and title from the JSON response.
-                Article article = new Article(null, topic, webDate, webTime, title);
+                // title and url from the JSON response.
+                Article article = new Article(null, topic, webDate, webTime, title, url);
 
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);
