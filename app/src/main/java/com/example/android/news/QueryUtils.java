@@ -23,8 +23,7 @@ import java.util.List;
  */
 public final class QueryUtils {
 
-    /** Sample JSON response for a query from The Guardian*/
-    private static final String SAMPLE_JSON_RESPONSE = "{\"response\":{\"status\":\"ok\",\"userTier\":\"developer\",\"total\":14062,\"startIndex\":1,\"pageSize\":10,\"currentPage\":1,\"pages\":1407,\"orderBy\":\"relevance\",\"results\":[{\"id\":\"education/2018/nov/05/lets-have-perspective-in-tuition-fees-debate\",\"type\":\"article\",\"sectionId\":\"education\",\"sectionName\":\"Education\",\"webPublicationDate\":\"2018-11-05T18:20:40Z\",\"webTitle\":\"Let’s have perspective in tuition fees debate | Letters\",\"webUrl\":\"https://www.theguardian.com/education/2018/nov/05/lets-have-perspective-in-tuition-fees-debate\",\"apiUrl\":\"https://content.guardianapis.com/education/2018/nov/05/lets-have-perspective-in-tuition-fees-debate\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"politics/2018/oct/31/debate-final-brexit-deal-could-use-rare-commons-procedure\",\"type\":\"article\",\"sectionId\":\"politics\",\"sectionName\":\"Politics\",\"webPublicationDate\":\"2018-10-31T06:00:12Z\",\"webTitle\":\"Debate on final Brexit deal could use rare Commons procedure\",\"webUrl\":\"https://www.theguardian.com/politics/2018/oct/31/debate-final-brexit-deal-could-use-rare-commons-procedure\",\"apiUrl\":\"https://content.guardianapis.com/politics/2018/oct/31/debate-final-brexit-deal-could-use-rare-commons-procedure\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"news/2018/jul/18/debate-continues-over-labours-code-on-antisemitism\",\"type\":\"article\",\"sectionId\":\"news\",\"sectionName\":\"News\",\"webPublicationDate\":\"2018-07-18T17:10:48Z\",\"webTitle\":\"Debate continues over Labour’s code on antisemitism | Letters\",\"webUrl\":\"https://www.theguardian.com/news/2018/jul/18/debate-continues-over-labours-code-on-antisemitism\",\"apiUrl\":\"https://content.guardianapis.com/news/2018/jul/18/debate-continues-over-labours-code-on-antisemitism\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"politics/2018/sep/19/momentum-wont-block-second-brexit-vote-debate-at-labour-conference\",\"type\":\"article\",\"sectionId\":\"politics\",\"sectionName\":\"Politics\",\"webPublicationDate\":\"2018-09-19T16:00:22Z\",\"webTitle\":\"Momentum won't block second Brexit vote debate at Labour conference\",\"webUrl\":\"https://www.theguardian.com/politics/2018/sep/19/momentum-wont-block-second-brexit-vote-debate-at-labour-conference\",\"apiUrl\":\"https://content.guardianapis.com/politics/2018/sep/19/momentum-wont-block-second-brexit-vote-debate-at-labour-conference\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"politics/2018/sep/13/labour-conference-must-debate-brexit-deal-vote-say-constituencies\",\"type\":\"article\",\"sectionId\":\"politics\",\"sectionName\":\"Politics\",\"webPublicationDate\":\"2018-09-13T17:54:54Z\",\"webTitle\":\"Labour conference must debate Brexit deal vote, say local groups\",\"webUrl\":\"https://www.theguardian.com/politics/2018/sep/13/labour-conference-must-debate-brexit-deal-vote-say-constituencies\",\"apiUrl\":\"https://content.guardianapis.com/politics/2018/sep/13/labour-conference-must-debate-brexit-deal-vote-say-constituencies\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"politics/2018/jun/22/working-class-concerns-ignored-in-brexit-debate\",\"type\":\"article\",\"sectionId\":\"politics\",\"sectionName\":\"Politics\",\"webPublicationDate\":\"2018-06-22T15:45:21Z\",\"webTitle\":\"Working-class concerns ignored in Brexit debate | Letters\",\"webUrl\":\"https://www.theguardian.com/politics/2018/jun/22/working-class-concerns-ignored-in-brexit-debate\",\"apiUrl\":\"https://content.guardianapis.com/politics/2018/jun/22/working-class-concerns-ignored-in-brexit-debate\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"politics/2018/sep/12/mps-to-propose-allowing-proxy-votes-for-members-absent-for-family-reasons\",\"type\":\"article\",\"sectionId\":\"politics\",\"sectionName\":\"Politics\",\"webPublicationDate\":\"2018-09-11T23:00:57Z\",\"webTitle\":\"MPs to debate allowing proxy votes for members with babies\",\"webUrl\":\"https://www.theguardian.com/politics/2018/sep/12/mps-to-propose-allowing-proxy-votes-for-members-absent-for-family-reasons\",\"apiUrl\":\"https://content.guardianapis.com/politics/2018/sep/12/mps-to-propose-allowing-proxy-votes-for-members-absent-for-family-reasons\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"politics/2018/jun/08/theresa-may-enters-northern-ireland-abortion-debate\",\"type\":\"article\",\"sectionId\":\"politics\",\"sectionName\":\"Politics\",\"webPublicationDate\":\"2018-06-08T15:06:45Z\",\"webTitle\":\"Theresa May enters Northern Ireland abortion debate\",\"webUrl\":\"https://www.theguardian.com/politics/2018/jun/08/theresa-may-enters-northern-ireland-abortion-debate\",\"apiUrl\":\"https://content.guardianapis.com/politics/2018/jun/08/theresa-may-enters-northern-ireland-abortion-debate\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"news/2018/apr/26/putting-the-antisemitism-debate-in-perspective\",\"type\":\"article\",\"sectionId\":\"news\",\"sectionName\":\"News\",\"webPublicationDate\":\"2018-04-26T16:31:31Z\",\"webTitle\":\"Putting the antisemitism debate in perspective | Letters\",\"webUrl\":\"https://www.theguardian.com/news/2018/apr/26/putting-the-antisemitism-debate-in-perspective\",\"apiUrl\":\"https://content.guardianapis.com/news/2018/apr/26/putting-the-antisemitism-debate-in-perspective\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"},{\"id\":\"business/2018/jun/26/brexit-businesses-david-blanchflower-andrew-sentance\",\"type\":\"article\",\"sectionId\":\"business\",\"sectionName\":\"Business\",\"webPublicationDate\":\"2018-06-26T12:12:37Z\",\"webTitle\":\"'Brexit is scaring businesses to death' –  experts debate the data\",\"webUrl\":\"https://www.theguardian.com/business/2018/jun/26/brexit-businesses-david-blanchflower-andrew-sentance\",\"apiUrl\":\"https://content.guardianapis.com/business/2018/jun/26/brexit-businesses-david-blanchflower-andrew-sentance\",\"isHosted\":false,\"pillarId\":\"pillar/news\",\"pillarName\":\"News\"}]}}";
+
 
     /** Tag for the log messages */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
@@ -38,13 +37,133 @@ public final class QueryUtils {
     }
 
     /**
+     * Query the USGS dataset and return a list of {@link Article} objects.
+     */
+    public static List<Article> fetchArticles(String requestURL){
+
+        // Create an URL object
+        URL url = createURL(requestURL);
+
+        // Perform HTTP request to the URL and receive a JSON response back
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHTTPRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem on making the HTTP request.", e);
+        }
+
+        // Extract relevant fields from the JSON response and
+        // create an {@link List<Article>} object
+        List<Article> articles = extractFeatureFromJson(jsonResponse);
+
+        Log.e(LOG_TAG, "Fetching the data from List<Article> object");
+
+        // Return the {@link List<Article>} object
+        return articles;
+    }
+
+    /**
+     * Returns a new URL object from the given String URL
+     */
+    private static URL createURL(String stringURL) {
+        URL url = null;
+        try{
+            url = new URL(stringURL);
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Error with creating URL", e);
+        }
+        return url;
+    }
+
+    /**
+     * Make an HTTP request from the given URL and return a String object as the response.
+     */
+    private static String makeHTTPRequest(URL url) throws IOException {
+
+        // Initialize a String object that represents jsonResponse
+        String jsonResponse = "";
+
+        // If an URL object on the parameter is null, we return empty jsonResponse
+        if (url == null) {
+            return jsonResponse;
+        }
+
+        HttpURLConnection urlConnection = null;
+        InputStream inputStream = null;
+        try {
+            // Open the URL connection based on the given URL object
+            urlConnection = (HttpURLConnection) url.openConnection();
+            // Set the URL connection timeout to avoid on taking too long
+            urlConnection.setReadTimeout(10000 /*ms*/);
+            urlConnection.setConnectTimeout(15000 /*ms*/);
+            // Set the request method for an HTTPURLConnection object
+            urlConnection.setRequestMethod("GET");
+            // Connect the HTTPURLConnection into the Internet
+            urlConnection.connect();
+
+            // Check if the request was successful (response code 200)
+            if (urlConnection.getResponseCode() == 200) {
+                // If the request was successful, read the input stream and parse
+                // the response based on the given InputStream object
+                inputStream = urlConnection.getInputStream();
+                jsonResponse = readFromStream(inputStream);
+            } else {
+                Log.e(LOG_TAG, "Error Response Code: " + urlConnection.getResponseCode());
+            }
+        } catch (IOException e){
+            Log.e(LOG_TAG, "Problem retrieving JSON results.", e);
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            } if (inputStream != null){
+                // Closing the input stream could throw an IOException, which is why
+                // the makeHTTPRequest(URL url) method signature specifies an IOException
+                // could be thrown.
+                inputStream.close();
+            }
+        }
+
+        return jsonResponse;
+    }
+
+    /**
+     * Convert the {@link InputStream} into a String which contains the
+     * whole JSON response from the server.
+     */
+    private static String readFromStream(InputStream inputStream) throws IOException {
+        // Create a StringBuilder object
+        StringBuilder output = new StringBuilder();
+        if(inputStream != null){
+            // Create a new InputStreamReader object
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+            // Create a BufferedReader object that takes an InputStreamReader object
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            // Create a string object that reads line from a BufferedReader object
+            String line = reader.readLine();
+            // Check if line is not null and loop it until line is null
+            while (line != null) {
+                // If so, add the StringBuilder based on line
+                output.append(line);
+                line = reader.readLine();
+            }
+        }
+
+        return output.toString();
+    }
+
+    /**
      * Return a list of {@link Article} objects that has been built up from
      * parsing the given JSON response.
      */
-    public static ArrayList<Article> extractFeatureFromJson() {
+    private static List<Article> extractFeatureFromJson(String articlesJSON) {
+
+        // If the JSON string is empty or null, then return early
+        if (TextUtils.isEmpty(articlesJSON)) {
+            return null;
+        }
 
         // Create an empty ArrayList that we can start adding articles to
-        ArrayList<Article> articles = new ArrayList<>();
+        List<Article> articles = new ArrayList<>();
 
         // Try to parse the JSON response string. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -52,12 +171,13 @@ public final class QueryUtils {
         try {
 
             // Create a JSONObject from the JSON response string
-            JSONObject baseJsonResponse = new JSONObject(SAMPLE_JSON_RESPONSE);
+            JSONObject baseJsonResponse = new JSONObject(articlesJSON);
 
+            // Create a JSONObject based on baseJSONResponse
             JSONObject jsonObject = baseJsonResponse.getJSONObject("response");
 
             // Extract the JSONArray associated with the key called "results",
-            // which represents a list of features (or articles).
+            // which represents a list of results (or articles).
             JSONArray articleArray = jsonObject.getJSONArray("results");
 
             // For each earthquake in the articleArray, create an {@link Article} object
