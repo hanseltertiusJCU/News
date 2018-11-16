@@ -2,6 +2,8 @@ package com.example.android.news;
 
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +18,15 @@ import java.util.List;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<Article>>{
 
+    /** Adapter for the list of articles */
     private ArticleAdapter articleAdapter;
+
+    /** TextView that is displayed when the list is empty */
+    private TextView emptyStateTextView;
 
     /** Sample JSON response for a query from The Guardian*/
     private static final String SAMPLE_JSON_RESPONSE_URL = "http://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
@@ -37,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         // Search for ListView
         ListView listView = (ListView) findViewById(R.id.news_list);
+
+        emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        listView.setEmptyView(emptyStateTextView);
 
         // Create a new ArticleAdapter object
         articleAdapter = new ArticleAdapter(this, new ArrayList<Article>());
@@ -61,14 +71,32 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             }
         });
 
-        // Get a reference to the LoaderManager, in order to interact with loaders.
-        LoaderManager loaderManager = getLoaderManager();
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
+        // Get details on the currently active default data network
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        // If there is a network connection, fetch data
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // Get a reference to the LoaderManager, in order to interact with loaders.
+            LoaderManager loaderManager = getLoaderManager();
+
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+            // because this activity implements the LoaderCallbacks interface).
+            loaderManager.initLoader(ARTICLE_LOADER_ID, null, this);
+        } else {
+            // Otherwise, display error
+            // First, hide loading indicator so error message will be visible
+            View loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message
+            emptyStateTextView.setText(R.string.no_internet_connection);
+        }
 
 
-        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-        // because this activity implements the LoaderCallbacks interface).
-        loaderManager.initLoader(ARTICLE_LOADER_ID, null, this);
 
     }
 
@@ -94,6 +122,13 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      */
     @Override
     public void onLoadFinished(Loader<List<Article>> loader, List<Article> articles) {
+        // Hide loading indicator because the data has been loaded
+        View loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator.setVisibility(View.GONE);
+
+        // Set empty state text to display "No articles found."
+        emptyStateTextView.setText(R.string.no_articles);
+
         // Clear the adapter of previous article data
         if(articleAdapter != null){
             articleAdapter.clear();
