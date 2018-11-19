@@ -116,15 +116,20 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
 
-        // todo: use the sharedpreferences and pass the value from sharedpreferences :)
-
+        // Create a SharedPreferences object
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String topic = sharedPreferences.getString(getString(R.string.settings_topic_key), getString(R.string.settings_topic_default));
-        Log.v("value", topic);
 
+        // Get a String value based on SharedPreferences object
+        String topic = sharedPreferences.getString(getString(R.string.settings_topic_key), getString(R.string.settings_topic_default));
+        String displayPages = sharedPreferences.getString(getString(R.string.settings_page_size_key), getString(R.string.settings_page_size_default));
+        String sortBy = sharedPreferences.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
+
+        // Create an Uri object based on topic values
         Uri baseUri = Uri.parse(SAMPLE_JSON_RESPONSE_URL + topic + "?");
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
+        uriBuilder.appendQueryParameter("page-size", displayPages);
+        uriBuilder.appendQueryParameter("order-by", sortBy);
         uriBuilder.appendQueryParameter("api-key", API_KEY);
 
         return new ArticleLoader(this, uriBuilder.toString());

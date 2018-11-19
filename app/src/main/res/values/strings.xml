@@ -16,6 +16,7 @@
     <string name="settings_topic_key" translatable="false">sectionId</string>
     <string name="settings_topic_default" translatable="false">world</string>
 
+
     <!-- Label for sectionId world option [CHAR LIMIT=20] -->
     <string name="settings_sectionId_world_label">World news</string>
     <string name="settings_sectionId_world_value" translatable="false">world</string>
@@ -65,5 +66,44 @@
     <string name="settings_sectionId_global_development_value" translatable="false">global-development</string>
 
 
+    <!-- Strings For Page Size Preference [CHAR LIMIT=30] -->
+    <string name="settings_page_size_label">Display items per page</string>
+    <string name="settings_page_size_key" translatable="false">page-size</string>
+    <string name="settings_page_size_default" translatable="false">10</string>
 
+
+    <!-- Label for page_size ten option [CHAR LIMIT=20] -->
+    <string name="settings_page_size_ten_label">10</string>
+    <string name="settings_page_size_ten_value" translatable="false">10</string>
+
+    <!-- Label for page_size twenty five option [CHAR LIMIT=20] -->
+    <string name="settings_page_size_twenty_five_label">25</string>
+    <string name="settings_page_size_twenty_five_value" translatable="false">25</string>
+
+    <!-- Label for page_size fifty option [CHAR LIMIT=20] -->
+    <string name="settings_page_size_fifty_label">50</string>
+    <string name="settings_page_size_fifty_value" translatable="false">50</string>
+
+    <!-- Label for page_size one hundred option [CHAR LIMIT=20] -->
+    <string name="settings_page_size_one_hundred_label">100</string>
+    <string name="settings_page_size_one_hundred_value" translatable="false">100</string>
+
+
+    <!-- Strings For Order by Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order-by</string>
+    <string name="settings_order_by_default" translatable="false">newest</string>
+
+
+    <!-- Label for order_by newest option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- Label for order_by oldest option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <!-- Label for order_by relevance option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_relevance_label">Most Relevant</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
 </resources>

@@ -24,6 +24,12 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference topic = findPreference(getString(R.string.settings_topic_key));
             bindPreferenceSummaryToValue(topic);
+
+            Preference pageSize = findPreference(getString(R.string.settings_page_size_key));
+            bindPreferenceSummaryToValue(pageSize);
+
+            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
+            bindPreferenceSummaryToValue(orderBy);
         }
 
         /**
