@@ -2,12 +2,15 @@ package com.example.android.news;
 
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private TextView emptyStateTextView;
 
     /** Sample JSON response for a query from The Guardian*/
-    private static final String SAMPLE_JSON_RESPONSE_URL = "http://content.guardianapis.com/search?";
+    private static final String SAMPLE_JSON_RESPONSE_URL = "http://content.guardianapis.com/";
 
     private static final String API_KEY = "c61b895c-df8d-444f-a371-6c3715bf8c9c";
 
@@ -113,7 +116,13 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
 
-        Uri baseUri = Uri.parse(SAMPLE_JSON_RESPONSE_URL);
+        // todo: use the sharedpreferences and pass the value from sharedpreferences :)
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String topic = sharedPreferences.getString(getString(R.string.settings_topic_key), getString(R.string.settings_topic_default));
+        Log.v("value", topic);
+
+        Uri baseUri = Uri.parse(SAMPLE_JSON_RESPONSE_URL + topic + "?");
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         uriBuilder.appendQueryParameter("api-key", API_KEY);

@@ -1,11 +1,69 @@
 <resources>
     <string name="app_name">News</string>
+
     <!-- Text to display in the list when there are no articles [CHAR LIMIT=NONE] -->
     <string name="no_articles">No articles found.</string>
     <!-- Error message when there is no internet connectivity [CHAR LIMIT=NONE] -->
     <string name="no_internet_connection">No internet connection.</string>
+
     <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
     <string name="settings_menu_item">Settings</string>
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
     <string name="settings_title">Articles Settings</string>
+
+    <!-- Strings For Topic Preference [CHAR LIMIT=30] -->
+    <string name="settings_topic_label">Topic</string>
+    <string name="settings_topic_key" translatable="false">sectionId</string>
+    <string name="settings_topic_default" translatable="false">world</string>
+
+    <!-- Label for sectionId world option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_world_label">World news</string>
+    <string name="settings_sectionId_world_value" translatable="false">world</string>
+
+    <!-- Label for sectionId football option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_football_label">Football</string>
+    <string name="settings_sectionId_football_value" translatable="false">football</string>
+
+    <!-- Label for sectionId tennis option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_tennis_label">Tennis</string>
+    <string name="settings_sectionId_tennis_value" translatable="false">sport/tennis</string>
+
+    <!-- Label for sectionId formulaone option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_formulaone_label">F1</string>
+    <string name="settings_sectionId_formulaone_value" translatable="false">sport/formulaone</string>
+
+    <!-- Label for sectionId music option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_music_label">Music</string>
+    <string name="settings_sectionId_music_value" translatable="false">music</string>
+
+    <!-- Label for sectionId games option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_games_label">Games</string>
+    <string name="settings_sectionId_games_value" translatable="false">games</string>
+
+    <!-- Label for sectionId fashion option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_fashion_label">Fashion</string>
+    <string name="settings_sectionId_fashion_value" translatable="false">fashion</string>
+
+    <!-- Label for sectionId food option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_food_label">Food</string>
+    <string name="settings_sectionId_food_value" translatable="false">food</string>
+
+    <!-- Label for sectionId women option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_women_label">Women</string>
+    <string name="settings_sectionId_women_value" translatable="false">lifeandstyle/women</string>
+
+    <!-- Label for sectionId health-and-wellbeing option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_health_and_wellbeing_label">Health &amp; fitness</string>
+    <string name="settings_sectionId_health_and_wellbeing_value" translatable="false">lifeandstyle/health-and-wellbeing</string>
+
+    <!-- Label for sectionId business option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_business_label">Business</string>
+    <string name="settings_sectionId_business_value" translatable="false">uk/business</string>
+
+    <!-- Label for sectionId global-development option [CHAR LIMIT=20] -->
+    <string name="settings_sectionId_global_development_label">Global development</string>
+    <string name="settings_sectionId_global_development_value" translatable="false">global-development</string>
+
+
+
 </resources>

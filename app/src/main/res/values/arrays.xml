@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_sectionId_labels">
+        <item>@string/settings_sectionId_world_label</item>
+        <item>@string/settings_sectionId_football_label</item>
+        <item>@string/settings_sectionId_tennis_label</item>
+        <item>@string/settings_sectionId_formulaone_label</item>
+        <item>@string/settings_sectionId_music_label</item>
+        <item>@string/settings_sectionId_games_label</item>
+        <item>@string/settings_sectionId_fashion_label</item>
+        <item>@string/settings_sectionId_food_label</item>
+        <item>@string/settings_sectionId_women_label</item>
+        <item>@string/settings_sectionId_health_and_wellbeing_label</item>
+        <item>@string/settings_sectionId_business_label</item>
+        <item>@string/settings_sectionId_global_development_label</item>
+    </string-array>
+
+    <string-array name="settings_sectionId_values">
+        <item>@string/settings_sectionId_world_value</item>
+        <item>@string/settings_sectionId_football_value</item>
+        <item>@string/settings_sectionId_tennis_value</item>
+        <item>@string/settings_sectionId_formulaone_value</item>
+        <item>@string/settings_sectionId_music_value</item>
+        <item>@string/settings_sectionId_games_value</item>
+        <item>@string/settings_sectionId_fashion_value</item>
+        <item>@string/settings_sectionId_food_value</item>
+        <item>@string/settings_sectionId_women_value</item>
+        <item>@string/settings_sectionId_health_and_wellbeing_value</item>
+        <item>@string/settings_sectionId_business_value</item>
+        <item>@string/settings_sectionId_global_development_value</item>
+    </string-array>
+
+</resources>
