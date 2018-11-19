@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -29,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private TextView emptyStateTextView;
 
     /** Sample JSON response for a query from The Guardian*/
-    private static final String SAMPLE_JSON_RESPONSE_URL = "http://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&api-key=test";
+    private static final String SAMPLE_JSON_RESPONSE_URL = "http://content.guardianapis.com/search?";
+
+    private static final String API_KEY = "c61b895c-df8d-444f-a371-6c3715bf8c9c";
 
     /**
      * Constant value for the article loader ID. We can choose any integer.
@@ -112,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         Uri baseUri = Uri.parse(SAMPLE_JSON_RESPONSE_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
+        uriBuilder.appendQueryParameter("api-key", API_KEY);
+
         return new ArticleLoader(this, uriBuilder.toString());
     }
 
@@ -149,5 +155,32 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     @Override
     public void onLoaderReset(Loader<List<Article>> loader) {
         articleAdapter.clear();
+    }
+
+    /**
+     * Inflate the main.xml under the menu directory
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    /**
+     * When the item is selected, go to another activity called SettingsActivity
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
