@@ -192,6 +192,17 @@ public final class QueryUtils {
                 // Extract the value for the key called "webPublicationDate"
                 String dateTime = currentArticle.getString("webPublicationDate");
 
+                // Extract the JSONArray with the key "tag"
+                JSONArray tagsArray = currentArticle.getJSONArray("tags");
+
+                // Declare String variable to hold author name
+                String authorName = null;
+
+                if (tagsArray.length() == 1) {
+                    JSONObject contributorTag = (JSONObject) tagsArray.get(0);
+                    authorName = contributorTag.getString("webTitle");
+                }
+
                 // Create a StringArray that split into two parts: webDate and webTime
                 String[] webTimePublished = dateTime.split("T");
 
@@ -214,7 +225,7 @@ public final class QueryUtils {
 
                 // Create a new {@link Article} object with the magnitude, location, time,
                 // title and url from the JSON response.
-                Article article = new Article(null, topic, webDate, webTime, title, url);
+                Article article = new Article(authorName, topic, webDate, webTime, title, url);
 
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);
