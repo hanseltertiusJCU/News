@@ -3,7 +3,7 @@ package com.example.android.news;
 public class Article {
 
     // Initiate variables for the custom class
-    private int mArticleImage;
+    private String mArticleImage;
     private String mAuthor;
     private String mTopic;
     private String mDate;
@@ -25,7 +25,7 @@ public class Article {
     }
 
 
-    public Article(int articleImage, String author, String topic, String date, String time, String articleTitle, String articleURL){
+    public Article(String articleImage, String author, String topic, String date, String time, String articleTitle, String articleURL){
         mArticleImage = articleImage;
         mAuthor = author;
         mTopic = topic;
@@ -35,7 +35,7 @@ public class Article {
         mArticleURL = articleURL;
     }
 
-    public int getmArticleImage() {
+    public String getmArticleImage() {
         return mArticleImage;
     }
 

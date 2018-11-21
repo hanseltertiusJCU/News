@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         uriBuilder.appendQueryParameter("page-size", displayPages);
         uriBuilder.appendQueryParameter("order-by", sortBy);
+        uriBuilder.appendQueryParameter("show-fields", "thumbnail");
         uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("api-key", API_KEY);
 

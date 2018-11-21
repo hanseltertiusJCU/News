@@ -186,18 +186,32 @@ public final class QueryUtils {
                 // Get a single article at position i within the list of articles
                 JSONObject currentArticle = articleArray.getJSONObject(i);
 
-                // Extract the value for the key called "mag"
+                // Get a JSONObject based on key "fields"
+                JSONObject fields = currentArticle.getJSONObject("fields");
+
+                // Declare String variable to hold thumbnail
+                String thumbnail = null;
+
+                // Check if fields exist, if so then get the object and assign the
+                // thumbnail variable from "thumbnail" tag in "fields"
+                if (fields.length() == 1) {
+                    thumbnail = fields.getString("thumbnail");
+                }
+
+                // Extract the value for the key called "sectionName"
                 String topic = currentArticle.getString("sectionName");
 
                 // Extract the value for the key called "webPublicationDate"
                 String dateTime = currentArticle.getString("webPublicationDate");
 
-                // Extract the JSONArray with the key "tag"
+                // Extract the JSONArray with the key "tags"
                 JSONArray tagsArray = currentArticle.getJSONArray("tags");
 
                 // Declare String variable to hold author name
                 String authorName = null;
 
+                // Check if tagsArray exist, if so then get the array and assign the
+                // authorName variable from "webTitle" tag in "tags"
                 if (tagsArray.length() == 1) {
                     JSONObject contributorTag = (JSONObject) tagsArray.get(0);
                     authorName = contributorTag.getString("webTitle");
@@ -225,7 +239,7 @@ public final class QueryUtils {
 
                 // Create a new {@link Article} object with the magnitude, location, time,
                 // title and url from the JSON response.
-                Article article = new Article(authorName, topic, webDate, webTime, title, url);
+                Article article = new Article(thumbnail, authorName, topic, webDate, webTime, title, url);
 
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);

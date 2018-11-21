@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
@@ -34,9 +36,9 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         ImageView articleImageView = (ImageView) listItemView.findViewById(R.id.article_image);
 
         // Check if the article object has valid image
-        if(currentArticle.getmArticleImage() != 0){
+        if(currentArticle.getmArticleImage() != null){
             // Get image resource ID of the article and set the image resource into ImageView
-            articleImageView.setImageResource(currentArticle.getmArticleImage());
+            Picasso.with(getContext()).load(currentArticle.getmArticleImage()).into(articleImageView);
             articleImageView.setVisibility(View.VISIBLE);
         } else {
             // Set the ImageView visibility to GONE if there is no image exists.
