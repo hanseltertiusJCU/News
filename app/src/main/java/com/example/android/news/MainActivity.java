@@ -1,5 +1,7 @@
 package com.example.android.news;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
@@ -15,10 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.LoaderManager;
@@ -44,10 +49,73 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      */
     private static final int ARTICLE_LOADER_ID = 1;
 
+    private TextView fromDate;
+    private TextView toDate;
+
+    private String current_from_date;
+    private String current_to_date;
+
+    /**
+     * Create a listener that change date in from section
+     */
+    private DatePickerDialog.OnDateSetListener mFromDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+            month = month + 1;
+
+            current_from_date = String.format("%d-%02d-%02d", year, month, date);
+
+            fromDate.setText(current_from_date);
+        }
+
+
+
+    };
+
+    /**
+     * Create a listener that change date in to section
+     */
+    private DatePickerDialog.OnDateSetListener mToDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+            month = month + 1;
+
+            current_to_date = String.format("%d-%02d-%02d", year, month, date);
+
+            toDate.setText(current_to_date);
+        }
+
+    };
+
+    private int mFromYear;
+    private int mFromMonth;
+    private int mFromDate;
+
+    private int mToYear;
+    private int mToMonth;
+    private int mToDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get Current Date in From section
+        final Calendar fromCalendar = Calendar.getInstance();
+        mFromYear = fromCalendar.get(Calendar.YEAR);
+        mFromMonth = fromCalendar.get(Calendar.MONTH);
+        mFromDate = fromCalendar.get(Calendar.DAY_OF_MONTH);
+
+        current_from_date = String.format("%d-%02d-%02d", mFromYear, (mFromMonth + 1), mFromDate);
+
+        // Get Current Date in To section
+        final Calendar toCalendar = Calendar.getInstance();
+        mToYear = toCalendar.get(Calendar.YEAR);
+        mToMonth = toCalendar.get(Calendar.MONTH);
+        mToDate = toCalendar.get(Calendar.DAY_OF_MONTH);
+
+
+        current_to_date = String.format("%d-%02d-%02d", mToYear, (mToMonth + 1), mToDate);
 
         // Search for ListView
         ListView listView = (ListView) findViewById(R.id.news_list);
@@ -103,6 +171,51 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
 
+        // Search the TextView with id fromDate
+        fromDate = (TextView) findViewById(R.id.fromDate);
+        // Set text in TextView to current date
+        fromDate.setText(current_from_date);
+        // Pop up the dialog when the TextView is being clicked
+        fromDate.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View activity) {
+
+                Dialog mFromDialog = new DatePickerDialog(MainActivity.this,
+                        mFromDateSetListener, mFromYear,
+                        mFromMonth, mFromDate);
+
+                mFromDialog.show();
+            }
+        });
+
+        // Search the TextView with id toDate
+        toDate = (TextView) findViewById(R.id.toDate);
+        // Set text in TextView to current date
+        toDate.setText(current_to_date);
+        // Pop up the dialog when the TextView is being clicked
+        toDate.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View activity) {
+
+                Dialog mToDialog = new DatePickerDialog(MainActivity.this,
+                        mToDateSetListener, mToYear,
+                        mToMonth, mToDate);
+
+                mToDialog.show();
+            }
+        });
+
+        Button refresh = (Button) findViewById(R.id.refreshButton);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Get a reference to the LoaderManager, in order to interact with loaders.
+                LoaderManager loaderManager = getLoaderManager();
+
+                loaderManager.restartLoader(ARTICLE_LOADER_ID, null, MainActivity.this);
+            }
+        });
 
 
     }
@@ -129,6 +242,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         uriBuilder.appendQueryParameter("page-size", displayPages);
+        uriBuilder.appendQueryParameter("from-date", current_from_date);
+        uriBuilder.appendQueryParameter("to-date", current_to_date);
         uriBuilder.appendQueryParameter("order-by", sortBy);
         uriBuilder.appendQueryParameter("show-fields", "thumbnail");
         uriBuilder.appendQueryParameter("show-tags", "contributor");
@@ -199,4 +314,5 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
