@@ -28,6 +28,9 @@ public final class QueryUtils {
     /** Tag for the log messages */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
+    // Number of pages
+    private static int pagesCount = 1;
+
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
@@ -176,6 +179,9 @@ public final class QueryUtils {
             // Create a JSONObject based on baseJSONResponse
             JSONObject jsonObject = baseJsonResponse.getJSONObject("response");
 
+            // Get the number of pages
+            pagesCount = jsonObject.getInt("pages");
+
             // Extract the JSONArray associated with the key called "results",
             // which represents a list of results (or articles).
             JSONArray articleArray = jsonObject.getJSONArray("results");
@@ -254,6 +260,11 @@ public final class QueryUtils {
 
         // Return the list of articles
         return articles;
+    }
+
+    // Return number of pages count
+    public static int getPagesCount() {
+        return pagesCount;
     }
 
 }

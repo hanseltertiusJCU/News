@@ -106,4 +106,15 @@
     <!-- Label for order_by relevance option [CHAR LIMIT=20] -->
     <string name="settings_order_by_relevance_label">Most Relevant</string>
     <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+
+    <!-- String values for Page Navigation -->
+    <string name="page_text">Page</string>
+    <string name="of_text">of</string>
+
+
+    <!-- String values for Date Navigation -->
+    <string name="from_text">From</string>
+    <string name="to_text">to</string>
+
 </resources>

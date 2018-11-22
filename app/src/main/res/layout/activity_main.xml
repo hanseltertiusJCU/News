@@ -15,39 +15,43 @@
         android:background="#64FFDA">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:textColor="#000000"
-            android:text="From"/>
+            android:text="@string/from_text"/>
 
         <TextView
             android:id="@+id/fromDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:layout_gravity="center"
             android:layout_marginRight="16dp"
             android:textColor="#000000"
-            android:text="YYYY-MM-DD"/>
+            tools:text="YYYY-MM-DD"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginRight="16dp"
             android:textColor="#000000"
-            android:text="To"/>
+            android:text="@string/to_text"/>
 
         <TextView
             android:id="@+id/toDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:layout_gravity="center"
             android:layout_marginRight="16dp"
             android:textColor="#000000"
-            android:text="YYYY-MM-DD"/>
+            tools:text="YYYY-MM-DD"/>
 
         <Button
             android:id="@+id/refreshButton"
@@ -59,7 +63,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ListView
             android:layout_width="match_parent"
@@ -67,6 +71,7 @@
             android:id="@+id/news_list"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginBottom="50dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="16dp"
             android:paddingTop="16dp"
@@ -90,6 +95,76 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
+
+        <LinearLayout
+            android:id="@+id/pageMenu"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="#64FFDA">
+
+            <Button
+                android:id="@+id/previousPageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Previous"
+                android:textColor="#000000" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:layout_weight="2"
+                android:text="@string/page_text"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/currentPage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:textColor="#000000"
+                tools:text="1"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:textColor="#000000"
+                android:text="@string/of_text"/>
+
+            <TextView
+                android:id="@+id/pagesCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:textColor="#000000"
+                tools:text="10"/>
+
+            <Button
+                android:id="@+id/nextPageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="16dp"
+                android:textColor="#000000"
+                android:text="Next"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
+
+
 
 </LinearLayout>
