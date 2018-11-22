@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     // Set the LoaderManager to be able to used in multiple occasions
     private LoaderManager loaderManager;
 
+    // Setup the maximum number of pages
+    private String maxPages;
+
     /**
      * Create a listener that change date in from section
      */
@@ -226,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
                 //Show progressbar, hide list view while loading
                 listView.setVisibility(View.GONE);
                 loadingIndicator.setVisibility(View.VISIBLE);
+                // Empty the emptyStateTextView if there is text in there
                 if(emptyStateTextView.getText() != null) {
                     emptyStateTextView.setText(null);
                 }
@@ -244,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
                     loaderManager.restartLoader(ARTICLE_LOADER_ID, null, MainActivity.this);
                     //Set start position
                     currentPage = 1;
+                    // Show page navigation as well as listView
                     prevPage.setVisibility(View.INVISIBLE);
                     nextPage.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.VISIBLE);
@@ -251,6 +256,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
                     if (articleAdapter != null) {
                         articleAdapter.clear();
                     }
+                    // Hide loading indicator as well as page navigation LinearLayout and show listView
+                    // in order to enable emptyStateTextView text into the center
                     loadingIndicator.setVisibility(View.GONE);
                     pageLayout.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
@@ -294,10 +301,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
                     // Restart the loader when clicking the button to retrieve new from-date and to-date query parameter
                     loaderManager.restartLoader(ARTICLE_LOADER_ID, null, MainActivity.this);
                 } else {
-                    listView.setEmptyView(emptyStateTextView);
                     if (articleAdapter != null) {
                         articleAdapter.clear();
                     }
+                    // Hide loading indicator as well as page navigation LinearLayout and show listView
+                    // in order to enable emptyStateTextView text into the center
                     loadingIndicator.setVisibility(View.GONE);
                     pageLayout.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
@@ -344,6 +352,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
                     if (articleAdapter != null) {
                         articleAdapter.clear();
                     }
+                    // Hide loading indicator as well as page navigation LinearLayout and show listView
+                    // in order to enable emptyStateTextView text into the center
                     loadingIndicator.setVisibility(View.GONE);
                     pageLayout.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
@@ -378,19 +388,17 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             loaderManager.initLoader(ARTICLE_LOADER_ID, null, this);
         } else {
             // Otherwise, display error
-            // First, hide loading indicator so error message will be visible
+            // First, hide loading indicator and page navigation layout so error message will be visible
             loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
-
             pageLayout.setVisibility(View.GONE);
+
+            // Then, show the list view
             listView.setVisibility(View.VISIBLE);
 
             // Update empty state with no connection error message
             emptyStateTextView.setText(R.string.no_internet_connection);
         }
-
-
-
 
     }
 
@@ -410,6 +418,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         String topic = sharedPreferences.getString(getString(R.string.settings_topic_key), getString(R.string.settings_topic_default));
         String displayPages = sharedPreferences.getString(getString(R.string.settings_page_size_key), getString(R.string.settings_page_size_default));
         String sortBy = sharedPreferences.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
+        maxPages = sharedPreferences.getString(getString(R.string.settings_max_pages_key), getString(R.string.settings_max_pages_default));
+
 
         // Create an Uri object based on topic values
         Uri baseUri = Uri.parse(SAMPLE_JSON_RESPONSE_URL + topic + "?");
@@ -439,6 +449,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
+        // Hide page navigation LinearLayout when we are going to set the empty data
         pageLayout.setVisibility(View.GONE);
 
         // Set empty state text to display "No articles found."
@@ -452,11 +463,15 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         // Check if there is a network connection, which affects the empty state text view output
         if (networkInfo != null && networkInfo.isConnected()) {
+            // Hide the page navigation LinearLayout and show the listView to enable the emptyStateTextView
+            // to be in the center
             pageLayout.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             // Set empty state text to display "There are no books to display."
             emptyStateTextView.setText(R.string.no_articles);
         } else {
+            // Hide the page navigation LinearLayout and show the listView to enable the emptyStateTextView
+            // to be in the center
             pageLayout.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             // Update empty state with no connection error message
@@ -474,13 +489,26 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             articleAdapter.addAll(articles);
         }
 
-        // Get number of pages
-        totalPages = getPagesCount();
+        // Check if maxPages based on SharedPreferences does not equal to all
+        if(!(maxPages.equals("all"))) {
+            // Get number of pages
+            totalPages = getPagesCount();
+            // Check if totalPages is more than maxPages
+            if(totalPages > Integer.parseInt(maxPages)){
+                totalPages = Integer.parseInt(maxPages);
+            }
+        } else {
+            // Get number of pages
+            totalPages = getPagesCount();
+        }
+
         // If no article
         if (totalPages == 0) {
             if (articleAdapter != null) {
                 articleAdapter.clear();
             }
+            // Show list view, hide progress bar while loading in order for text in emptyStateTextView
+            // to be in center
             loadingIndicator.setVisibility(View.GONE);
             pageLayout.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);

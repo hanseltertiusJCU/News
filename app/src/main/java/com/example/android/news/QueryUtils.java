@@ -28,7 +28,9 @@ public final class QueryUtils {
     /** Tag for the log messages */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
-    // Number of pages
+    /**
+     * Initiate number of pages
+     */
     private static int pagesCount = 1;
 
     /**
@@ -235,7 +237,7 @@ public final class QueryUtils {
                 webTime = webTimePublished[1];
 
                 // Remove an unwanted character on webTime
-                webTime = webTime.replace("Z", "");
+                webTime = webTime.replace("Z", " GMT");
 
                 // Extract the value for the key called "webTitle"
                 String title = currentArticle.getString("webTitle");
@@ -262,7 +264,10 @@ public final class QueryUtils {
         return articles;
     }
 
-    // Return number of pages count
+    /**
+     * Return number of pages count
+     * @return pagesCount
+     */
     public static int getPagesCount() {
         return pagesCount;
     }

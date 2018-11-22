@@ -56,4 +56,19 @@
         <item>@string/settings_order_by_relevance_value</item>
     </string-array>
 
+    <string-array name="settings_max_pages_labels">
+        <item>@string/settings_max_pages_five_label</item>
+        <item>@string/settings_max_pages_ten_label</item>
+        <item>@string/settings_max_pages_fifteen_label</item>
+        <item>@string/settings_max_pages_all_label</item>
+    </string-array>
+
+    <string-array name="settings_max_pages_values">
+        <item>@string/settings_max_pages_five_value</item>
+        <item>@string/settings_max_pages_ten_value</item>
+        <item>@string/settings_max_pages_fifteen_value</item>
+        <item>@string/settings_max_pages_all_value</item>
+    </string-array>
+
+
 </resources>

@@ -108,6 +108,28 @@
     <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
 
 
+    <!-- Strings For Maximum number of Pages Preference [CHAR LIMIT=30] -->
+    <string name="settings_max_pages_label">Maximum number of pages</string>
+    <string name="settings_max_pages_key" translatable="false">max-pages</string>
+    <string name="settings_max_pages_default" translatable="false">5</string>
+
+
+    <!-- Label for max_pages five option [CHAR LIMIT=20] -->
+    <string name="settings_max_pages_five_label">5</string>
+    <string name="settings_max_pages_five_value" translatable="false">5</string>
+
+    <!-- Label for max_pages ten option [CHAR LIMIT=20] -->
+    <string name="settings_max_pages_ten_label">10</string>
+    <string name="settings_max_pages_ten_value" translatable="false">10</string>
+
+    <!-- Label for max_pages fifteen option [CHAR LIMIT=20] -->
+    <string name="settings_max_pages_fifteen_label">15</string>
+    <string name="settings_max_pages_fifteen_value" translatable="false">15</string>
+
+    <!-- Label for max_pages all option [CHAR LIMIT=20] -->
+    <string name="settings_max_pages_all_label">all</string>
+    <string name="settings_max_pages_all_value" translatable="false">all</string>
+
     <!-- String values for Page Navigation -->
     <string name="page_text">Page</string>
     <string name="of_text">of</string>
