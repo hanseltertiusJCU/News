@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,14 +102,27 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private String maxPages;
 
     /**
+     * Create a constant called LIST_STATE to be used on a
+     * global variable that represents Parcelable object
+     */
+    private static final String LIST_STATE = "listState";
+
+    // Variable for saving and resuming
+    private Parcelable mListState = null;
+
+    /**
      * Create a listener that change date in from section
      */
     private DatePickerDialog.OnDateSetListener mFromDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-            month = month + 1;
+            month += 1;
 
             current_from_date = String.format("%d-%02d-%02d", year, month, date);
+
+            mFromYear = year;
+            mFromMonth = month;
+            mFromDate = date;
 
             fromDate.setText(current_from_date);
         }
@@ -123,9 +137,13 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private DatePickerDialog.OnDateSetListener mToDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-            month = month + 1;
+            month += 1;
 
             current_to_date = String.format("%d-%02d-%02d", year, month, date);
+
+            mToYear = year;
+            mToMonth = month;
+            mToDate = date;
 
             toDate.setText(current_to_date);
         }
@@ -139,21 +157,51 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         // Get Current Date in From section
         final Calendar fromCalendar = Calendar.getInstance();
-        mFromYear = fromCalendar.get(Calendar.YEAR);
-        mFromMonth = fromCalendar.get(Calendar.MONTH);
-        mFromDate = fromCalendar.get(Calendar.DAY_OF_MONTH);
-
-        // Format the date to be 'YYYY-MM-DD'
-        current_from_date = String.format("%d-%02d-%02d", mFromYear, (mFromMonth + 1), mFromDate);
 
         // Get Current Date in To section
         final Calendar toCalendar = Calendar.getInstance();
-        mToYear = toCalendar.get(Calendar.YEAR);
-        mToMonth = toCalendar.get(Calendar.MONTH);
-        mToDate = toCalendar.get(Calendar.DAY_OF_MONTH);
 
-        // Format the date to be 'YYYY-MM-DD'
-        current_to_date = String.format("%d-%02d-%02d", mToYear, (mToMonth + 1), mToDate);
+        if (savedInstanceState == null) {
+            mFromYear = fromCalendar.get(Calendar.YEAR);
+            mFromMonth = fromCalendar.get(Calendar.MONTH);
+            mFromDate = fromCalendar.get(Calendar.DAY_OF_MONTH);
+
+            mToYear = toCalendar.get(Calendar.YEAR);
+            mToMonth = toCalendar.get(Calendar.MONTH);
+            mToDate = toCalendar.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+
+            mFromYear = savedInstanceState.getInt("fromYear");
+            mFromMonth = savedInstanceState.getInt("fromMonth");
+            mFromDate = savedInstanceState.getInt("fromDate");
+
+            mToYear = savedInstanceState.getInt("toYear");
+            mToMonth = savedInstanceState.getInt("toMonth");
+            mToDate = savedInstanceState.getInt("toDate");
+
+            currentPage = savedInstanceState.getInt("currentPage");
+        }
+
+        // Check if the from year, month and date is on default mode
+        if(mFromYear == fromCalendar.get(Calendar.YEAR) && mFromMonth == fromCalendar.get(Calendar.MONTH) && mFromDate == fromCalendar.get(Calendar.DAY_OF_MONTH)){
+            // Format the date to be 'YYYY-MM-DD' while adding 1 in from month
+            // in order to provide the correct month while displaying the text
+            current_from_date = String.format("%d-%02d-%02d", mFromYear, (mFromMonth + 1), mFromDate);
+        } else {
+            // Format the date to be 'YYYY-MM-DD'
+            current_from_date = String.format("%d-%02d-%02d", mFromYear, mFromMonth, mFromDate);
+        }
+
+        // Check if the to year, month and date is on default mode
+        if(mToYear == toCalendar.get(Calendar.YEAR) && mToMonth == toCalendar.get(Calendar.MONTH) && mToDate == toCalendar.get(Calendar.DAY_OF_MONTH)) {
+            // Format the date to be 'YYYY-MM-DD' while adding 1 in to month
+            // in order to provide the correct month while displaying the text
+            current_to_date = String.format("%d-%02d-%02d", mToYear, (mToMonth + 1), mToDate);
+        } else {
+            // Format the date to be 'YYYY-MM-DD'
+            current_to_date = String.format("%d-%02d-%02d", mToYear, mToMonth, mToDate);
+        }
 
         // Search for ListView
         listView = (ListView) findViewById(R.id.news_list);
@@ -196,9 +244,23 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
             public void onClick(View activity) {
                 // Create a new Dialog object that shows the current date
-                Dialog mFromDialog = new DatePickerDialog(MainActivity.this,
-                        mFromDateSetListener, mFromYear,
-                        mFromMonth, mFromDate);
+
+                Dialog mFromDialog;
+
+                // Check if the from year, month and date is on default mode
+                if(mFromYear == fromCalendar.get(Calendar.YEAR) &&
+                        mFromMonth == fromCalendar.get(Calendar.MONTH) &&
+                        mFromDate == fromCalendar.get(Calendar.DAY_OF_MONTH)) {
+                    mFromDialog = new DatePickerDialog(MainActivity.this,
+                            mFromDateSetListener, mFromYear,
+                            mFromMonth, mFromDate);
+                } else {
+                    // Make from month be subtracted by 1 in order to provide the correct month when
+                    // popping up the dialog
+                    mFromDialog = new DatePickerDialog(MainActivity.this,
+                            mFromDateSetListener, mFromYear,
+                            (mFromMonth - 1), mFromDate);
+                }
 
                 mFromDialog.show();
             }
@@ -213,9 +275,23 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
             public void onClick(View activity) {
                 // Create a new Dialog object that shows the current date
-                Dialog mToDialog = new DatePickerDialog(MainActivity.this,
-                        mToDateSetListener, mToYear,
-                        mToMonth, mToDate);
+
+                Dialog mToDialog;
+
+                // Check if the to year, month and date is on default mode
+                if(mToYear == toCalendar.get(Calendar.YEAR) &&
+                        mToMonth == toCalendar.get(Calendar.MONTH) &&
+                        mToDate == toCalendar.get(Calendar.DAY_OF_MONTH)) {
+                    mToDialog = new DatePickerDialog(MainActivity.this,
+                            mToDateSetListener, mToYear,
+                            mToMonth, mToDate);
+                } else {
+                    // Make to month be subtracted by 1 in order to provide the correct month when
+                    // popping up the dialog
+                    mToDialog = new DatePickerDialog(MainActivity.this,
+                            mToDateSetListener, mToYear,
+                            (mToMonth - 1), mToDate);
+                }
 
                 mToDialog.show();
             }
@@ -226,8 +302,13 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Show progressbar, hide list view while loading
+                // Clear the article adapter to hide data while loading
+                if (articleAdapter != null) {
+                    articleAdapter.clear();
+                }
+                //Show progressbar, hide list view as well as page layout while loading
                 listView.setVisibility(View.GONE);
+                pageLayout.setVisibility(View.GONE);
                 loadingIndicator.setVisibility(View.VISIBLE);
                 // Empty the emptyStateTextView if there is text in there
                 if(emptyStateTextView.getText() != null) {
@@ -242,16 +323,23 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
                 //Refresh list view by restart loader
                 if (networkInfo != null && networkInfo.isConnected()) {
+                    //Set start position
+                    currentPage = 1;
+
                     // Get a reference to the LoaderManager, in order to interact with loaders.
                     loaderManager = getLoaderManager();
                     // Restart the loader when clicking the button to retrieve new from-date and to-date query parameter
                     loaderManager.restartLoader(ARTICLE_LOADER_ID, null, MainActivity.this);
-                    //Set start position
-                    currentPage = 1;
-                    // Show page navigation as well as listView
-                    prevPage.setVisibility(View.INVISIBLE);
-                    nextPage.setVisibility(View.VISIBLE);
+
+                    // Make listView visible after the loader finished on loading, as well as
+                    // putting the scroll position of listView into the top of the page
                     listView.setVisibility(View.VISIBLE);
+                    listView.setSelection(0);
+                    // Ensure that the Parcelable is null in order to keep the listView scroll position
+                    // in the top of the page after finished on loading the loader
+                    mListState = null;
+
+
                 } else {
                     if (articleAdapter != null) {
                         articleAdapter.clear();
@@ -272,15 +360,23 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         prevPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Show progressbar, hide list view while loading
+                // Clear the article adapter to hide data while loading
+                if (articleAdapter != null) {
+                    articleAdapter.clear();
+                }
+                // Show progressbar, hide list view while loading
                 loadingIndicator.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
+                // Empty the emptyStateTextView if there is text in there
+                if(emptyStateTextView.getText() != null) {
+                    emptyStateTextView.setText(null);
+                }
                 // Handle min page
                 if (currentPage > 1) {
                     currentPage--;
                 }
                 // Handle page down button visibility
-                if (currentPage < 2) {
+                if (currentPage == 1) {
                     prevPage.setVisibility(View.INVISIBLE);
                 }
                 // Handle page up button visibility
@@ -320,9 +416,17 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         nextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Show progressbar, hide list view while loading
+                // Clear the article adapter to hide data while loading
+                if (articleAdapter != null) {
+                    articleAdapter.clear();
+                }
+                // Show progressbar, hide list view while loading
                 loadingIndicator.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
+                // Empty the emptyStateTextView if there is text in there
+                if(emptyStateTextView.getText() != null) {
+                    emptyStateTextView.setText(null);
+                }
                 // Handle max page
                 if (currentPage < totalPages) {
                     currentPage++;
@@ -367,7 +471,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         currentPageText = (TextView) findViewById(R.id.currentPage);
         allPagesText = (TextView) findViewById(R.id.pagesCount);
 
-        // Set the text for current page and all pages
+        // Set the text for current page and all pages, and convert the int into String for avoiding errors
         currentPageText.setText(String.valueOf(currentPage));
         allPagesText.setText(String.valueOf(totalPages));
 
@@ -479,7 +583,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         }
 
         // Clear the adapter of previous article data
-        if(articleAdapter != null){
+        if (articleAdapter != null) {
             articleAdapter.clear();
         }
 
@@ -489,12 +593,13 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             articleAdapter.addAll(articles);
         }
 
-        // Check if maxPages based on SharedPreferences does not equal to all
-        if(!(maxPages.equals("all"))) {
-            // Get number of pages
+        // Check if maxPages based on SharedPreferences does not equal to
+        // all as well as maxPages is not null
+        if (maxPages != null && !maxPages.equals("all")) {
+            // Get total number of pages
             totalPages = getPagesCount();
             // Check if totalPages is more than maxPages
-            if(totalPages > Integer.parseInt(maxPages)){
+            if (totalPages > Integer.parseInt(maxPages)) {
                 totalPages = Integer.parseInt(maxPages);
             }
         } else {
@@ -520,7 +625,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             listView.setVisibility(View.VISIBLE);
         }
 
-        // Set pages text
+        // Set current page and all pages text, and convert the int into String for avoiding errors
         currentPageText.setText(String.valueOf(currentPage));
         allPagesText.setText(String.valueOf(totalPages));
 
@@ -533,9 +638,18 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             prevPage.setVisibility(View.VISIBLE);
             nextPage.setVisibility(View.VISIBLE);
         }
+        if ((totalPages > 1) && (currentPage == 1)) {
+            prevPage.setVisibility(View.INVISIBLE);
+            nextPage.setVisibility(View.VISIBLE);
+        }
         if ((totalPages > 1) && (currentPage == totalPages)) {
             prevPage.setVisibility(View.VISIBLE);
             nextPage.setVisibility(View.INVISIBLE);
+        }
+
+        // Save the scroll position when getting back into the Activity after closing the intent
+        if (mListState != null) {
+            listView.onRestoreInstanceState(mListState);
         }
     }
 
@@ -573,6 +687,44 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Restore the ListView scroll position by getting a constant value
+    @Override
+    protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state);
+        mListState = state.getParcelable(LIST_STATE);
+
+    }
+
+    // When resuming the Activity, restore the
+    // ListView scroll position by calling onRestoreInstanceState method
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mListState != null) {
+            listView.onRestoreInstanceState(mListState);
+        }
+    }
+
+    // Save the listView scroll position, from and to year, month and date as well as current page
+    @Override
+    protected void onSaveInstanceState(Bundle state) {
+        mListState = listView.onSaveInstanceState();
+        state.putParcelable(LIST_STATE, mListState);
+
+        state.putInt("fromYear", mFromYear);
+        state.putInt("fromMonth", mFromMonth);
+        state.putInt("fromDate", mFromDate);
+
+        state.putInt("toYear", mToYear);
+        state.putInt("toMonth", mToMonth);
+        state.putInt("toDate", mToDate);
+
+        state.putInt("currentPage", currentPage);
+
+        super.onSaveInstanceState(state);
+
     }
 
 }
