@@ -60,10 +60,10 @@
 
         <Button
             android:id="@+id/refreshButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginRight="16dp"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:background="@drawable/ic_refresh"/>
 
     </LinearLayout>
@@ -113,9 +113,8 @@
 
             <Button
                 android:id="@+id/previousPageButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
@@ -165,9 +164,8 @@
 
             <Button
                 android:id="@+id/nextPageButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
                 android:background="@drawable/ic_forward"/>
@@ -175,7 +173,5 @@
         </LinearLayout>
 
     </RelativeLayout>
-
-
 
 </LinearLayout>
