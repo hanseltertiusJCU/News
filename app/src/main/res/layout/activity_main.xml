@@ -60,9 +60,11 @@
 
         <Button
             android:id="@+id/refreshButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Refresh"/>
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_refresh"/>
 
     </LinearLayout>
 
@@ -111,19 +113,20 @@
 
             <Button
                 android:id="@+id/previousPageButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:text="Previous" />
+                android:background="@drawable/ic_back"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:text="@string/page_text"
                 android:textColor="#FFFFFF"
                 app:fontFamily="@font/open_sans" />
@@ -162,11 +165,12 @@
 
             <Button
                 android:id="@+id/nextPageButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:text="Next"/>
+                android:background="@drawable/ic_forward"/>
 
         </LinearLayout>
 
