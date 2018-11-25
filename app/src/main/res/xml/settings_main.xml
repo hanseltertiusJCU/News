@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings_title">
 
     <ListPreference
@@ -8,7 +9,8 @@
         android:entries="@array/settings_sectionId_labels"
         android:entryValues="@array/settings_sectionId_values"
         android:key="@string/settings_topic_key"
-        android:title="@string/settings_topic_label" />
+        android:title="@string/settings_topic_label"
+        />
 
     <ListPreference
         android:defaultValue="@string/settings_page_size_default"

@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#E0E0E0"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="#64FFDA">
+        android:background="#1976D2">
 
         <TextView
             android:layout_width="0dp"
@@ -21,8 +22,9 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:textColor="#000000"
-            android:text="@string/from_text"/>
+            android:textColor="#FFFFFF"
+            android:text="@string/from_text"
+            app:fontFamily="@font/open_sans"/>
 
         <TextView
             android:id="@+id/fromDate"
@@ -31,8 +33,9 @@
             android:layout_weight="2"
             android:layout_gravity="center"
             android:layout_marginRight="16dp"
-            android:textColor="#000000"
-            tools:text="YYYY-MM-DD"/>
+            android:textColor="#FFFFFF"
+            tools:text="YYYY-MM-DD"
+            app:fontFamily="@font/open_sans"/>
 
         <TextView
             android:layout_width="0dp"
@@ -40,8 +43,9 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_marginRight="16dp"
-            android:textColor="#000000"
-            android:text="@string/to_text"/>
+            android:textColor="#FFFFFF"
+            android:text="@string/to_text"
+            app:fontFamily="@font/open_sans"/>
 
         <TextView
             android:id="@+id/toDate"
@@ -50,8 +54,9 @@
             android:layout_weight="2"
             android:layout_gravity="center"
             android:layout_marginRight="16dp"
-            android:textColor="#000000"
-            tools:text="YYYY-MM-DD"/>
+            android:textColor="#FFFFFF"
+            tools:text="YYYY-MM-DD"
+            app:fontFamily="@font/open_sans"/>
 
         <Button
             android:id="@+id/refreshButton"
@@ -102,7 +107,7 @@
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:background="#64FFDA">
+            android:background="#1976D2">
 
             <Button
                 android:id="@+id/previousPageButton"
@@ -111,8 +116,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:text="Previous"
-                android:textColor="#000000" />
+                android:text="Previous" />
 
             <TextView
                 android:layout_width="0dp"
@@ -121,7 +125,8 @@
                 android:layout_marginRight="16dp"
                 android:layout_weight="2"
                 android:text="@string/page_text"
-                android:textColor="#000000" />
+                android:textColor="#FFFFFF"
+                app:fontFamily="@font/open_sans" />
 
             <TextView
                 android:id="@+id/currentPage"
@@ -130,8 +135,9 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:textColor="#000000"
-                tools:text="1"/>
+                android:textColor="#FFFFFF"
+                tools:text="1"
+                app:fontFamily="@font/open_sans"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -139,8 +145,9 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:textColor="#000000"
-                android:text="@string/of_text"/>
+                android:textColor="#FFFFFF"
+                android:text="@string/of_text"
+                app:fontFamily="@font/open_sans"/>
 
             <TextView
                 android:id="@+id/pagesCount"
@@ -149,8 +156,9 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:textColor="#000000"
-                tools:text="10"/>
+                android:textColor="#FFFFFF"
+                tools:text="10"
+                app:fontFamily="@font/open_sans"/>
 
             <Button
                 android:id="@+id/nextPageButton"
@@ -158,7 +166,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
-                android:textColor="#000000"
                 android:text="Next"/>
 
         </LinearLayout>
