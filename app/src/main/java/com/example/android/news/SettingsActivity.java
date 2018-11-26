@@ -1,12 +1,15 @@
 package com.example.android.news;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -14,6 +17,12 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        // Find fragment in order to set the background color as it cannot be modified from xml
+        View fragment = (View) findViewById(R.id.settings_fragment);
+        int lightGray = Color.parseColor("#E0E0E0");
+        fragment.getRootView().setBackgroundColor(lightGray);
+
     }
 
     public static class ArticlePreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener{
@@ -22,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
 
+            // Find Preference object in order to
             Preference topic = findPreference(getString(R.string.settings_topic_key));
             bindPreferenceSummaryToValue(topic);
 
