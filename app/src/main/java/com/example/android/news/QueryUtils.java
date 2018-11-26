@@ -1,5 +1,7 @@
 package com.example.android.news;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -198,12 +200,18 @@ public final class QueryUtils {
                 JSONObject fields = currentArticle.getJSONObject("fields");
 
                 // Declare String variable to hold thumbnail
-                String thumbnail = null;
+                String thumbnail;
+                // Declare Bitmap variable to be passed into the custom class
+                Bitmap thumbnailBitmap = null;
 
                 // Check if fields exist, if so then get the object and assign the
                 // thumbnail variable from "thumbnail" tag in "fields"
                 if (fields.length() == 1) {
                     thumbnail = fields.getString("thumbnail");
+                    // Create new URL object based on thumbnail in the String variable
+                    URL url = new URL(thumbnail);
+                    // Open the Bitmap
+                    thumbnailBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 }
 
                 // Extract the value for the key called "sectionName"
@@ -247,7 +255,7 @@ public final class QueryUtils {
 
                 // Create a new {@link Article} object with the magnitude, location, time,
                 // title and url from the JSON response.
-                Article article = new Article(thumbnail, authorName, topic, webDate, webTime, title, url);
+                Article article = new Article(thumbnailBitmap, authorName, topic, webDate, webTime, title, url);
 
                 // Add the new {@link Article} to the list of articles.
                 articles.add(article);
@@ -258,6 +266,10 @@ public final class QueryUtils {
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
             Log.e("QueryUtils", "Problem parsing the article JSON results", e);
+        } catch (MalformedURLException e) {
+            Log.e("QueryUtils", "There is Malformed URL", e);
+        } catch (IOException e) {
+            Log.e("QueryUtils", "There is I/O Exception", e);
         }
 
         // Return the list of articles

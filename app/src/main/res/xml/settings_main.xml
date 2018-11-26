@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/settings_title">
+
+    <PreferenceCategory
+        android:textSize="48sp"
+        android:title="General" />
 
     <ListPreference
         android:defaultValue="@string/settings_topic_default"
         android:entries="@array/settings_sectionId_labels"
         android:entryValues="@array/settings_sectionId_values"
         android:key="@string/settings_topic_key"
-        android:title="@string/settings_topic_label"
-        />
-
-    <ListPreference
-        android:defaultValue="@string/settings_page_size_default"
-        android:entries="@array/settings_page_size_labels"
-        android:entryValues="@array/settings_page_size_values"
-        android:key="@string/settings_page_size_key"
-        android:title="@string/settings_page_size_label" />
+        android:title="@string/settings_topic_label" />
 
     <ListPreference
         android:defaultValue="@string/settings_order_by_default"
@@ -25,6 +20,18 @@
         android:entryValues="@array/settings_order_by_values"
         android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label" />
+
+
+    <PreferenceCategory
+        android:textSize="48sp"
+        android:title="Page Settings" />
+
+    <ListPreference
+        android:defaultValue="@string/settings_page_size_default"
+        android:entries="@array/settings_page_size_labels"
+        android:entryValues="@array/settings_page_size_values"
+        android:key="@string/settings_page_size_key"
+        android:title="@string/settings_page_size_label" />
 
     <ListPreference
         android:defaultValue="@string/settings_max_pages_default"

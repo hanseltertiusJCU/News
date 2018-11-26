@@ -1,9 +1,11 @@
 package com.example.android.news;
 
+import android.graphics.Bitmap;
+
 public class Article {
 
     // Initiate variables for the custom class
-    private String mArticleImage;
+    private Bitmap mArticleImage;
     private String mAuthor;
     private String mTopic;
     private String mDate;
@@ -11,21 +13,8 @@ public class Article {
     private String mArticleTitle;
     private String mArticleURL;
 
-    // Set the constants for no image and no text found
-    private static final String NO_TEXT_FOUND = null;
-    private static final int NO_IMAGE_FOUND = -1;
 
-    public Article(String author, String topic, String date, String time, String articleTitle, String articleURL){
-        mAuthor = author;
-        mTopic = topic;
-        mDate = date;
-        mTime = time;
-        mArticleTitle = articleTitle;
-        mArticleURL = articleURL;
-    }
-
-
-    public Article(String articleImage, String author, String topic, String date, String time, String articleTitle, String articleURL){
+    public Article(Bitmap articleImage, String author, String topic, String date, String time, String articleTitle, String articleURL){
         mArticleImage = articleImage;
         mAuthor = author;
         mTopic = topic;
@@ -35,7 +24,7 @@ public class Article {
         mArticleURL = articleURL;
     }
 
-    public String getmArticleImage() {
+    public Bitmap getmArticleImage() {
         return mArticleImage;
     }
 
