@@ -2,7 +2,6 @@ package com.example.android.news;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
@@ -13,7 +12,7 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageButton;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -537,6 +536,53 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         uriBuilder.appendQueryParameter("show-fields", "thumbnail");
         uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("api-key", API_KEY);
+
+        if(topic != null) {
+            // Set Activity title
+            if (topic == getString(R.string.settings_sectionId_world_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_world_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_football_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_football_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_tennis_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_tennis_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_formulaone_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_formulaone_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_music_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_music_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_games_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_games_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_fashion_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_fashion_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_food_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_food_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_women_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_women_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_health_and_wellbeing_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_health_and_wellbeing_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_business_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_business_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else if (topic == getString(R.string.settings_sectionId_global_development_value)) {
+                this.setTitle(getResources().getText(R.string.settings_sectionId_global_development_label));
+                Log.v("topic", "Current topic: " + topic);
+            } else {
+                this.setTitle("News");
+                Log.v("topic", "Current topic: " + null);
+            }
+        }
+
+        Log.v("tag", "Section: " + topic);
+        Log.v("url", "URL: " + uriBuilder.toString());
 
         return new ArticleLoader(this, uriBuilder.toString());
     }

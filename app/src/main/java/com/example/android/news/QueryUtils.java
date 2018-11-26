@@ -210,7 +210,6 @@ public final class QueryUtils {
                     thumbnail = fields.getString("thumbnail");
                     // Create new URL object based on thumbnail in the String variable
                     URL url = new URL(thumbnail);
-                    // Open the Bitmap
                     thumbnailBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                 }
 
