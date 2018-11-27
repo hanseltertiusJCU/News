@@ -35,6 +35,8 @@ public final class QueryUtils {
      */
     private static int pagesCount = 1;
 
+    private static String topic;
+
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
@@ -214,7 +216,7 @@ public final class QueryUtils {
                 }
 
                 // Extract the value for the key called "sectionName"
-                String topic = currentArticle.getString("sectionName");
+                topic = currentArticle.getString("sectionName");
 
                 // Extract the value for the key called "webPublicationDate"
                 String dateTime = currentArticle.getString("webPublicationDate");
@@ -282,5 +284,7 @@ public final class QueryUtils {
     public static int getPagesCount() {
         return pagesCount;
     }
+
+    public static String getArticleTopic(){return topic;}
 
 }

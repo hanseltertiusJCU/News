@@ -24,12 +24,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.widget.TextView;
 
+import static com.example.android.news.QueryUtils.getArticleTopic;
 import static com.example.android.news.QueryUtils.getPagesCount;
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<Article>>{
@@ -52,7 +54,15 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private static final int ARTICLE_LOADER_ID = 1;
 
     /**
-     * Set the variable into global variable in order to be able to used in multiple places
+     * Set the variable for hashmap and its values into global variable
+     * in order to be able to used in multiple places
+     */
+    private HashMap data = new HashMap<String, String>();
+    private String topicTitle;
+
+    /**
+     * Set the variable for from and to date into global variable
+     * in order to be able to used in multiple places
      */
     private TextView fromDate;
     private TextView toDate;
@@ -160,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         // Get Current Date in To section
         final Calendar toCalendar = Calendar.getInstance();
 
+        this.getTitle();
+
         if (savedInstanceState == null) {
             mFromYear = fromCalendar.get(Calendar.YEAR);
             mFromMonth = fromCalendar.get(Calendar.MONTH);
@@ -171,6 +183,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         } else {
 
+            topicTitle = savedInstanceState.getString(getString(R.string.settings_topic_key));
+
+            // Set the topic title in order to keep the title while rotating the screen
+            this.setTitle(topicTitle);
+
             mFromYear = savedInstanceState.getInt("fromYear");
             mFromMonth = savedInstanceState.getInt("fromMonth");
             mFromDate = savedInstanceState.getInt("fromDate");
@@ -180,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             mToDate = savedInstanceState.getInt("toDate");
 
             currentPage = savedInstanceState.getInt("currentPage");
+
         }
 
         // Check if the from year, month and date is on default mode
@@ -537,52 +555,28 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("api-key", API_KEY);
 
-        if(topic != null) {
-            // Set Activity title
-            if (topic == getString(R.string.settings_sectionId_world_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_world_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_football_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_football_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_tennis_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_tennis_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_formulaone_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_formulaone_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_music_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_music_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_games_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_games_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_fashion_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_fashion_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_food_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_food_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_women_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_women_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_health_and_wellbeing_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_health_and_wellbeing_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_business_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_business_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else if (topic == getString(R.string.settings_sectionId_global_development_value)) {
-                this.setTitle(getResources().getText(R.string.settings_sectionId_global_development_label));
-                Log.v("topic", "Current topic: " + topic);
-            } else {
-                this.setTitle("News");
-                Log.v("topic", "Current topic: " + null);
-            }
-        }
+        data.put(getString(R.string.settings_sectionId_world_value), getString(R.string.settings_sectionId_world_label));
+        data.put(getString(R.string.settings_sectionId_football_value), getString(R.string.settings_sectionId_football_label));
+        data.put(getString(R.string.settings_sectionId_tennis_value), getString(R.string.settings_sectionId_tennis_label));
+        data.put(getString(R.string.settings_sectionId_formulaone_value), getString(R.string.settings_sectionId_formulaone_label));
+        data.put(getString(R.string.settings_sectionId_music_value), getString(R.string.settings_sectionId_music_label));
+        data.put(getString(R.string.settings_sectionId_games_value), getString(R.string.settings_sectionId_games_label));
+        data.put(getString(R.string.settings_sectionId_fashion_value), getString(R.string.settings_sectionId_fashion_label));
+        data.put(getString(R.string.settings_sectionId_food_value), getString(R.string.settings_sectionId_food_label));
+        data.put(getString(R.string.settings_sectionId_women_value), getString(R.string.settings_sectionId_women_label));
+        data.put(getString(R.string.settings_sectionId_health_and_wellbeing_value), getString(R.string.settings_sectionId_health_and_wellbeing_label));
+        data.put(getString(R.string.settings_sectionId_business_value), getString(R.string.settings_sectionId_business_label));
+        data.put(getString(R.string.settings_sectionId_global_development_value), getString(R.string.settings_sectionId_global_development_label));
 
-        Log.v("tag", "Section: " + topic);
-        Log.v("url", "URL: " + uriBuilder.toString());
+
+        // Set the topicObject the same value as topic, which is treated as the key
+        Object topicObject = topic;
+
+        // Access the key in the data HashMap and get the value from it
+        topicTitle = (String) data.get(topicObject);
+
+        // Set the title of the Activity
+        this.setTitle(topicTitle);
 
         return new ArticleLoader(this, uriBuilder.toString());
     }
@@ -756,8 +750,12 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     // Save the listView scroll position, from and to year, month and date as well as current page
     @Override
     protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
         mListState = listView.onSaveInstanceState();
         state.putParcelable(LIST_STATE, mListState);
+
+        // Pass the String value that contains the result from HashMap get() method
+        state.putString(getString(R.string.settings_topic_key), topicTitle);
 
         state.putInt("fromYear", mFromYear);
         state.putInt("fromMonth", mFromMonth);
@@ -769,7 +767,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
         state.putInt("currentPage", currentPage);
 
-        super.onSaveInstanceState(state);
+
 
     }
 
